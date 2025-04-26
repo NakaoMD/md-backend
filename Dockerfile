@@ -12,5 +12,6 @@ COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
 
-# ✅ Corrigido para interpolar variáveis de ambiente no runtime
-ENTRYPOINT ["sh", "-c", "exec java -Dspring.profiles.active=$SPRING_PROFILES_ACTIVE -jar app.jar"]
+# Permite passar SPRING_PROFILES_ACTIVE na hora de executar
+ENTRYPOINT ["sh", "-c", "java -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE} -jar app.jar"]
+
