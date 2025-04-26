@@ -11,4 +11,6 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# ✅ Corrigido para interpolar variáveis de ambiente no runtime
+ENTRYPOINT ["sh", "-c", "exec java -Dspring.profiles.active=$SPRING_PROFILES_ACTIVE -jar app.jar"]
