@@ -42,6 +42,14 @@ public class UserController {
         }
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<UserOutDTO> getAuthenticatedUser(
+            @AuthenticationPrincipal UserDetails loggedUser
+    ) {
+        UserOutDTO userData = userService.getAuthenticatedUser(loggedUser.getUsername());
+        return ResponseEntity.ok(userData);
+    }
+
     @GetMapping
     public ResponseEntity<Page<UserOutDTO>> getUsers(
             @RequestParam boolean active,

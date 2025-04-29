@@ -13,6 +13,8 @@ import java.util.List;
 public interface IUserService {
     boolean registerUser(UserRegisterDTO dto);
 
+    UserOutDTO getAuthenticatedUser(String email);
+
     Page<UserOutDTO> findByActiveAndRole(boolean active, String role, Pageable pageable);
 
     List<UserOutDTO> searchByEmail(String email);

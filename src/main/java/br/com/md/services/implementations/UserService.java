@@ -52,6 +52,13 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public UserOutDTO getAuthenticatedUser(String email){
+        return userRepository.findByEmail(email)
+                .map(this::toOutDTO)
+                .orElseThrow(() -> new IllegalArgumentException("usuario nao encontrado"));
+    }
+
+    @Override
     public Page<UserOutDTO> findByActiveAndRole(boolean active, String role, Pageable pageable) {
         return userRepository.findAllByActiveAndRole(active, role, pageable)
                 .map(this::toOutDTO);
@@ -132,6 +139,8 @@ public class UserService implements IUserService {
 
         userRepository.save(user);
     }
+
+
 
     private UserOutDTO toOutDTO(User user) {
         UserOutDTO dto = new UserOutDTO();
